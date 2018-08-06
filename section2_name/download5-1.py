@@ -42,5 +42,4 @@ print('li',li)
 for e in li:
     print(e.attrs['href'])
 
-#https://www.google.com
-#https://www.tistory.com
+#http://www.daum.com
