@@ -12,8 +12,8 @@ opener = req.build_opener()
 opener.addheaders = [('User-agent', 'Mozilla/5.0')]
 req.install_opener(opener)
 
-base = "https://search.naver.com/search.naver?where=image&sm=tab_jum&query="
-quote = rep.quote_plus("토끼")
+base = "https://www.inflearn.com/"
+quote = rep.quote_plus("")
 url = base + quote
 print(url)
 
@@ -33,17 +33,14 @@ except OSError as e:
 soup = BeautifulSoup(res, 'html.parser')
 #_sau_imageTab > div.photowall._photoGridWrapper > div.photo_grid._box > div:nth-child(1) > a.thumb._thumb > img -> 크롬에서 copyselector 이용해서 구한다음 수정
 
-img_list = soup.select("div.img_area._item > a.thumb._thumb > img")
+img_list = soup.select("section.stripe ul.grid > li")
 
-#for i, img_list in enumerate(img_list,1) :
-#    print(img_list)
+for i, e in enumerate(img_list,1):
+    with open(savePath+"text_"+str(i)+".txt","wt") as f:
+        f.write(e.select_one("h4.block_title > a").string)
+    fullFileName = os.path.join(savePath, savePath+'\imagedown'+str(i)+'.png') # jpg
+    req.urlretrieve(e.select_one("img")['src'],fullFileName)
 
-# 브라우저를 통해 접근하면 front 단에서 꾸며서 나온다
-# 지금 이렇게 출력한 값은 브라우저로 하면 렌더링 되기 전의 값을 확인해야함
 
-for i, e in enumerate(img_list,1) :
-    fullFileName = os.path.join(savePath, savePath+"/imagedown"+str(i)+'.jpg')
-    print(fullFileName)
-    req.urlretrieve(e['data-source'],fullFileName)
 
 print('다운로드 완료')
