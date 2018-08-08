@@ -17,7 +17,7 @@ print(r.encoding) #인코딩 확인해보니 None 으로 되어있다. unicode �
 if r.encoding is None:
     r.encoding = 'utf-8'
 
-for line in r.iter_lines(decode_unicode=True): #줄바꿈이 문제여서 줄바꿈 처리 해줬다.
+for line in r.iter_lines(decode_unicode=True): #유니코드로 디코딩(decoding) 처리하겠다는 뜻입니다. 문자열 처리등에 사용
     #print(line)
     b = json.loads(line)
     #print(type(b)) # dict 가 나오면 정확히 json 으로 컨버팅 되었다.
